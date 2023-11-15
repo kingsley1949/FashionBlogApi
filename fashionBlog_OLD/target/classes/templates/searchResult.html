@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Search Results</h1>
+
+<!--<div th:if="${searchResults == null}">-->
+<!--    <p>No results found for your search.</p>-->
+<!--</div>-->
+
+<!--<div th:if="${searchResults != null}">-->
+<!--    <p>Results for your search:</p>-->
+
+    <div th:each="blogPost : ${searchResults.content}">
+        <h2 th:text="${blogPost.title}"></h2>
+        <p th:text="${blogPost.content}"></p>
+        <ul>
+            <li th:each="comment : ${blogPost.comments}">
+                <span th:text="${comment.content}"></span>
+            </li>
+        </ul>
+        <a th:href="@{'/api/v1/posts/' + ${blogPost.id}}">
+            <button>Add comment</button>
+        </a>
+    </div>
+
+    <!-- Pagination links -->
+<!--    <div th:replace="fragments/paginatedPosts :: paginatedPosts(${searchResults})"></div>-->
+
+<a th:href="@{/api/v1/paginated}"> Go to Post Page</a>
+
+
+</body>
+</html>

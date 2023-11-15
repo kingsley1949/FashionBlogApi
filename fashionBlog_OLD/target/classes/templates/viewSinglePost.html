@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>view by id</title>
+</head>
+<body>
+
+
+<h1>Blog Posts</h1>
+<div th:each="post : ${blogger}">
+    <div>
+        <h2 th:text="${post.title}"></h2>
+        <p th:text="${post.content}"></p>
+    </div>
+    <h3>Comments</h3>
+    <div th:each="comment : ${commentView}">
+        <p th:text="${comment.content}"></p>
+    </div>
+
+
+    <form th:action="@{'/api/v1/createComment/' + ${post.id}}" method="post">
+
+        <label >Add Comment</label>
+<!--        <input type="text" th:name="content" >-->
+        <label>
+            <textarea rows="10" cols="50" th:name="content" placeholder="Enter comment" required></textarea>
+        </label>
+        <input type="submit" name="Add" >
+
+    </form>
+</div>
+<a th:href="@{/api/v1/paginated}"> Go to Post Page</a>
+
+</body>
+</html>
